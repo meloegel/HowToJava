@@ -7,8 +7,6 @@ import java.util.List;
 public interface HowToService {
     List<HowTo> findAll();
 
-    List<HowTo> findAllHowTosForUser(long id);
-
     List<HowTo> findAllHowTosByCategory(String category);
 
     HowTo findByName(String name);
@@ -19,6 +17,6 @@ public interface HowToService {
 
     HowTo update(HowTo howTo,long id);
 
-    public void deleteAll();
+    void deleteAll();
 
 }

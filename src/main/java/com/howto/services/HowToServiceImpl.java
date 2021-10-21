@@ -1,5 +1,6 @@
 package com.howto.services;
 
+import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
 import com.howto.repository.HowToRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Transactional
 @Service(value = "howToService")
@@ -24,18 +26,22 @@ public class HowToServiceImpl implements HowToService{
     }
 
     @Override
-    public List<HowTo> findAllHowTosForUser(long id) {
-        return null;
-    }
-
-    @Override
     public List<HowTo> findAllHowTosByCategory(String category) {
-        return null;
+        List<HowTo> list = new ArrayList<>();
+        howToRepository.findByCategory(category.toLowerCase()).iterator().forEachRemaining(list::add);
+        if (list.isEmpty()) {
+            throw new ResourceNotFoundException("HowTo category " + category + " is empty or does not exist");
+        }
+        return list;
     }
 
     @Override
     public HowTo findByName(String name) {
-        return null;
+        HowTo howTo = howToRepository.findByName(name.toLowerCase());
+        if (howTo == null) {
+            throw new ResourceNotFoundException("HowTo name " + name + " not found!");
+        }
+        return howTo;
     }
 
     @Override
