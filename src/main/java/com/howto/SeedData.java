@@ -111,7 +111,7 @@ public class SeedData implements CommandLineRunner {
         u3.getRoles()
                 .add(new UserRoles(u3,
                         r2));
-//        u3.getHowTos().add(new HowTo( "name", "description", "category", u3));
+        u3.getHowTos().add(new HowTo( "name three test", "description", "category", u3));
         u3.getUseremails()
                 .add(new Useremail(u3,
                         "barnbarn@email.local"));

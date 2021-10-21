@@ -46,4 +46,12 @@ public class HowToController {
         return new ResponseEntity<>(howto, HttpStatus.OK);
     }
 
+    // Returns a list of howtos whose name contains the given substring
+    // ** Use underscores (_) as spaces for more than one word names **
+    // Link: http://localhost:2019/howtos/howtos/like/cook_fish
+    @GetMapping(value = "/howtos/like/{name}", produces = "application/json")
+    public ResponseEntity<?> getHowToLikeName(@PathVariable String name) {
+        List<HowTo> howTos = howToService.findByNameContaining(name);
+        return new ResponseEntity<>(howTos, HttpStatus.OK);
+    }
 }
