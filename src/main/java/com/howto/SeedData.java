@@ -86,7 +86,7 @@ public class SeedData implements CommandLineRunner {
         User u2 = new User("cinnamon",
                 "1234567",
                 "cinnamon@lambdaschool.local");
-        u2.getHowTos().add(new HowTo( "name2", "description", "category", u2));
+        u2.getHowTos().add(new HowTo( "name two", "description", "category", u2));
         u2.getRoles()
                 .add(new UserRoles(u2,
                         r2));

@@ -36,9 +36,9 @@ public class HowToServiceImpl implements HowToService{
 
     @Override
     public HowTo findByName(String name) {
-        HowTo howTo = howToRepository.findByName(name.toLowerCase());
+        HowTo howTo = howToRepository.findByName(name.toLowerCase().replaceAll("_", " "));
         if (howTo == null) {
-            throw new ResourceNotFoundException("HowTo name " + name + " not found!");
+            throw new ResourceNotFoundException("HowTo named " + name + " not found!");
         }
         return howTo;
     }

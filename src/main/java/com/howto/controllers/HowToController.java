@@ -21,18 +21,25 @@ public class HowToController {
     @Autowired
     private HowToService howToService;
 
+    // Returns a list of all howtos
+    // Link:  http://localhost:2019/howtos/howtos
     @GetMapping(value = "/howtos", produces = "application/json")
     public ResponseEntity<?> listAllHowTos(){
         List<HowTo> allHowTos = howToService.findAll();
         return new ResponseEntity<>(allHowTos, HttpStatus.OK);
     }
 
+    // Returns a list of all howtos from a category given a valid category
+    // Link:  http://localhost:2019/howtos/category/cooking
     @GetMapping(value = "/category/{category}", produces = "application/json")
     public ResponseEntity<?> getByCategory(@PathVariable String category){
      List<HowTo> howToList = howToService.findAllHowTosByCategory(category);
      return new ResponseEntity<>(howToList, HttpStatus.OK);
     }
 
+    // Returns a specific howto based of valid name given
+    // ** Use underscores (_) as spaces for more than one word names **
+    // Link: http://localhost:2019/howtos/howto/cook_fish
     @GetMapping(value = "/howto/{name}", produces = "application/json")
     public ResponseEntity<?> getHowToByName(@PathVariable String name) {
         HowTo howto = howToService.findByName(name);
