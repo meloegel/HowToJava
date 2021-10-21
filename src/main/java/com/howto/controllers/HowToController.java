@@ -45,4 +45,5 @@ public class HowToController {
         HowTo howto = howToService.findByName(name);
         return new ResponseEntity<>(howto, HttpStatus.OK);
     }
+
 }

@@ -45,7 +45,7 @@ public class HowToServiceImpl implements HowToService{
 
     @Override
     public List<HowTo> findByNameContaining(String name) {
-        return null;
+        return howToRepository.findByNameContainingIgnoreCase(name.toLowerCase());
     }
 
     @Override

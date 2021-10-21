@@ -10,4 +10,5 @@ public interface HowToRepository extends CrudRepository<HowTo, Long> {
 
     List<HowTo> findByCategory(String category);
 
+    List<HowTo> findByNameContainingIgnoreCase(String name);
 }
