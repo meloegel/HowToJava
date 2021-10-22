@@ -1,6 +1,7 @@
 package com.howto.services;
 
 import com.howto.models.HowTo;
+import com.howto.models.Step;
 
 import java.util.List;
 

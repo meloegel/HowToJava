@@ -2,6 +2,7 @@ package com.howto.services;
 
 import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
+import com.howto.models.Step;
 import com.howto.repository.HowToRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ public class HowToServiceImpl implements HowToService{
    @Autowired
    private HowToRepository howToRepository;
 
+//   @Autowired
+//   private StepService stepService;
 
     @Override
     public List<HowTo> findAll() {
@@ -58,11 +61,34 @@ public class HowToServiceImpl implements HowToService{
 
     @Override
     public HowTo save(HowTo howTo) {
-        return null;
+        HowTo newHowTo = new HowTo();
+        if (howTo.getHowtoid() != 0) {
+            howToRepository.findById(howTo.getHowtoid())
+                    .orElseThrow(() -> new ResourceNotFoundException("HowTo id " + howTo.getHowtoid() + " not found!"));
+            newHowTo.setHowtoid(howTo.getHowtoid());
+        }
+
+        howTo.setCategory(howTo.getCategory());
+        howTo.setComplexity(howTo.getComplexity());
+        howTo.setDescription(howTo.getDescription());
+        howTo.setName(howTo.getName());
+        howTo.setUser(howTo.getUser());
+
+        howTo.setSteps(howTo.getSteps());
+
+//        howTo.getSteps().clear();
+//        for (Step st : howTo.getSteps()) {
+//            Step addStep = stepService.
+//
+//        }
+
+
+        return howToRepository.save(newHowTo);
     }
 
     @Override
     public HowTo update(HowTo howTo, long id) {
+
         return null;
     }
 
