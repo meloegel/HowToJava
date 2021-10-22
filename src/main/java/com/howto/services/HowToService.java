@@ -15,6 +15,8 @@ public interface HowToService {
 
     void delete(long id);
 
+    HowTo save(HowTo howTo);
+
     HowTo update(HowTo howTo,long id);
 
     void deleteAll();

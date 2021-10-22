@@ -50,7 +50,13 @@ public class HowToServiceImpl implements HowToService{
 
     @Override
     public void delete(long id) {
+        howToRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("How to id " + id + " not found!"));
+        howToRepository.deleteById(id);
+    }
 
+    @Override
+    public HowTo save(HowTo howTo) {
+        return null;
     }
 
     @Override
