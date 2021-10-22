@@ -5,6 +5,7 @@ import com.howto.models.HowTo;
 import com.howto.repository.HowToRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class HowToServiceImpl implements HowToService{
         return howToRepository.findByNameContainingIgnoreCase(name.toLowerCase().replaceAll("_", " "));
     }
 
+    @Transactional
     @Override
     public void delete(long id) {
         howToRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("How to id " + id + " not found!"));
@@ -64,8 +66,9 @@ public class HowToServiceImpl implements HowToService{
         return null;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAll() {
-
+        howToRepository.deleteAll();
     }
 }

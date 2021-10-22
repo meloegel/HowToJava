@@ -19,6 +19,6 @@ public interface HowToService {
 
     HowTo update(HowTo howTo,long id);
 
-    void deleteAll();
+    public void deleteAll();
 
 }
