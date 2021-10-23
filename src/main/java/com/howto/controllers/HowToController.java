@@ -76,10 +76,10 @@ public class HowToController {
     }
 
     // Given a complete Howto Object, create a new Howto record
-    // Link: http://localhost:2019/howtos/howto
+    // Link: http://localhost:2019/howtos/{userid}/howto
     // @param newHowTo - A complete new howto (howTo min: name, description, category, userid)
-    @PostMapping(value = "/howto", consumes = "application/json")
-    public ResponseEntity<?> addNewHowTo(@Valid long userid, @RequestBody HowTo newHowTo) throws URISyntaxException  {
+    @PostMapping(value = "/{userid}/howto", consumes = "application/json")
+    public ResponseEntity<?> addNewHowTo(@PathVariable long userid, @RequestBody HowTo newHowTo) throws URISyntaxException  {
         newHowTo.setHowtoid(0);
         newHowTo = howToService.save(userid, newHowTo);
         HttpHeaders responseHeaders = new HttpHeaders();

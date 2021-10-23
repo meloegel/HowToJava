@@ -81,7 +81,7 @@ public class HowToServiceImpl implements HowToService{
         User userInfo = userService.findUserById(userid);
         newHowTo.setUser(userInfo);
 
-        newHowTo.setSteps(howTo.getSteps());
+//        newHowTo.setSteps(howTo.getSteps());
 
 //        newHowTo.getSteps().clear();
 //        for (Step st : newHowTo.getSteps()) {
