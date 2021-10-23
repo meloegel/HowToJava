@@ -43,6 +43,11 @@ public class HowToServiceImpl implements HowToService{
     }
 
     @Override
+    public HowTo findByHowToId(long id) {
+        return howToRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Howto with id " + id + " not found!"));
+    }
+
+    @Override
     public HowTo findByName(String name) {
         HowTo howTo = howToRepository.findByName(name.toLowerCase().replaceAll("_", " "));
         if (howTo == null) {
@@ -93,11 +98,23 @@ public class HowToServiceImpl implements HowToService{
         return howToRepository.save(newHowTo);
     }
 
+
     @Override
     public HowTo update(HowTo howTo, long id) {
+        HowTo newHowto = findByHowToId(id);
+        if (newHowto.getName() == null ) {
+            throw new ResourceNotFoundException("HowTo with id " + id + " does not exist!");
+        }
+        newHowto.setName(howTo.getName());
+        newHowto.setUser(howTo.getUser());
+        newHowto.setDescription(howTo.getDescription());
+        newHowto.setComplexity(howTo.getComplexity());
+        newHowto.setCategory(howTo.getCategory());
+        newHowto.setSteps(howTo.getSteps());
 
-        return null;
+        return howToRepository.save(newHowto);
     }
+
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override

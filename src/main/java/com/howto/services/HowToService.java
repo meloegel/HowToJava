@@ -12,6 +12,8 @@ public interface HowToService {
 
     HowTo findByName(String name);
 
+    HowTo findByHowToId(long id);
+
     List<HowTo> findByNameContaining(String name);
 
     void delete(long id);
