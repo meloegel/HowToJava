@@ -3,6 +3,7 @@ package com.howto.services;
 import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
 import com.howto.models.Step;
+import com.howto.models.User;
 import com.howto.repository.HowToRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.List;
 public class HowToServiceImpl implements HowToService{
    @Autowired
    private HowToRepository howToRepository;
+
+   @Autowired
+   private UserService userService;
 
 //   @Autowired
 //   private StepService stepService;
@@ -61,7 +65,7 @@ public class HowToServiceImpl implements HowToService{
 
     @Transactional
     @Override
-    public HowTo save(HowTo howTo) {
+    public HowTo save(long userid, HowTo howTo) {
         HowTo newHowTo = new HowTo();
         if (howTo.getHowtoid() != 0) {
             howToRepository.findById(howTo.getHowtoid())
@@ -69,16 +73,18 @@ public class HowToServiceImpl implements HowToService{
             newHowTo.setHowtoid(howTo.getHowtoid());
         }
 
-        howTo.setCategory(howTo.getCategory());
-//        howTo.setComplexity(howTo.getComplexity());
-        howTo.setDescription(howTo.getDescription());
-        howTo.setName(howTo.getName());
-        howTo.setUser(howTo.getUser());
+        newHowTo.setCategory(howTo.getCategory());
+        newHowTo.setComplexity(howTo.getComplexity());
+        newHowTo.setDescription(howTo.getDescription());
+        newHowTo.setName(howTo.getName());
 
-//        howTo.setSteps(howTo.getSteps());
+        User userInfo = userService.findUserById(userid);
+        newHowTo.setUser(userInfo);
 
-//        howTo.getSteps().clear();
-//        for (Step st : howTo.getSteps()) {
+        newHowTo.setSteps(howTo.getSteps());
+
+//        newHowTo.getSteps().clear();
+//        for (Step st : newHowTo.getSteps()) {
 //            Step addStep = stepService.
 //
 //        }

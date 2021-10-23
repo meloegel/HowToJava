@@ -79,9 +79,9 @@ public class HowToController {
     // Link: http://localhost:2019/howtos/howto
     // @param newHowTo - A complete new howto (howTo min: name, description, category, userid)
     @PostMapping(value = "/howto", consumes = "application/json")
-    public ResponseEntity<?> addNewHowTo(@Valid @RequestBody HowTo newHowTo) throws URISyntaxException  {
+    public ResponseEntity<?> addNewHowTo(@Valid long userid, @RequestBody HowTo newHowTo) throws URISyntaxException  {
         newHowTo.setHowtoid(0);
-        newHowTo = howToService.save(newHowTo);
+        newHowTo = howToService.save(userid, newHowTo);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/howtos/howto/{howtoid}")
