@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -90,4 +92,18 @@ public class HowToController {
         responseHeaders.setLocation(newUserURI);
         return new ResponseEntity<>(newHowTo, responseHeaders, HttpStatus.CREATED);
     }
+
+    // Updates the howto record associated with the given id with the provided data.
+    //       Only the provided fields are affected.
+    // Link: http://localhost:2019/howtos/howto/{howtoid}
+    // @param updateHowTo - An object containing values for just the fields that are being updated.
+    //      All other fields are left NULL.
+    // @param howtoid - The primary key of the howto you wish to update.
+    @PatchMapping (value = "/howto/{howtoid}")
+    public ResponseEntity<?> updateHowTo(@PathVariable long howtoid, @RequestBody HowTo updatedHowTo) {
+        howToService.update(updatedHowTo, howtoid);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
+
 }

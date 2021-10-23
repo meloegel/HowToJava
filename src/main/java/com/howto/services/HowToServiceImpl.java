@@ -98,19 +98,34 @@ public class HowToServiceImpl implements HowToService{
         return howToRepository.save(newHowTo);
     }
 
-
+    @Transactional
     @Override
     public HowTo update(HowTo howTo, long id) {
         HowTo newHowto = findByHowToId(id);
         if (newHowto.getName() == null ) {
             throw new ResourceNotFoundException("HowTo with id " + id + " does not exist!");
         }
-        newHowto.setName(howTo.getName());
-        newHowto.setUser(howTo.getUser());
-        newHowto.setDescription(howTo.getDescription());
-        newHowto.setComplexity(howTo.getComplexity());
-        newHowto.setCategory(howTo.getCategory());
-        newHowto.setSteps(howTo.getSteps());
+        if (howTo.getName() != null) {
+            newHowto.setName(howTo.getName());
+        }
+        if (howTo.getUser() != null){
+            newHowto.setUser(howTo.getUser());
+        }
+        if (howTo.getDescription() != null) {
+            newHowto.setDescription(howTo.getDescription());
+        }
+        if (howTo.getComplexity() != null) {
+            newHowto.setComplexity(howTo.getComplexity());
+        }
+        if (howTo.getCategory() != null) {
+            newHowto.setCategory(howTo.getCategory());
+        }
+//        if (howTo.getSteps().size() > 0) {
+//            for (Step st: newHowto.getSteps()){
+//                Step addStep = stepSerivce
+//            }
+//        }
+//        newHowto.setSteps(howTo.getSteps());
 
         return howToRepository.save(newHowto);
     }
