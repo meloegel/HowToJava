@@ -59,6 +59,7 @@ public class HowToServiceImpl implements HowToService{
         howToRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public HowTo save(HowTo howTo) {
         HowTo newHowTo = new HowTo();
@@ -69,12 +70,12 @@ public class HowToServiceImpl implements HowToService{
         }
 
         howTo.setCategory(howTo.getCategory());
-        howTo.setComplexity(howTo.getComplexity());
+//        howTo.setComplexity(howTo.getComplexity());
         howTo.setDescription(howTo.getDescription());
         howTo.setName(howTo.getName());
         howTo.setUser(howTo.getUser());
 
-        howTo.setSteps(howTo.getSteps());
+//        howTo.setSteps(howTo.getSteps());
 
 //        howTo.getSteps().clear();
 //        for (Step st : howTo.getSteps()) {

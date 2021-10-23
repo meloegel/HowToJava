@@ -33,7 +33,7 @@ public class HowTo extends Auditable {
     private String description;
 
     @Column(nullable = false)
-    private  String category;
+    private String category;
 
     @Column
     private String complexity;
@@ -43,7 +43,7 @@ public class HowTo extends Auditable {
     private List<Step> steps = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "userid", nullable = false)
     @JsonIgnoreProperties(value = {"howTos", "roles", "useremails"}, allowSetters = true)
     private User user;
 
