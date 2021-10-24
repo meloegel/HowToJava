@@ -81,7 +81,7 @@ public class HowToController {
     // Link: http://localhost:2019/howtos/{userid}/howto
     // @param newHowTo - A complete new howto (howTo min: name, description, category, userid)
     @PostMapping(value = "/{userid}/howto", consumes = "application/json")
-    public ResponseEntity<?> addNewHowTo(@PathVariable long userid, @RequestBody HowTo newHowTo) throws URISyntaxException  {
+    public ResponseEntity<?> addNewHowTo(@PathVariable long userid, @Valid @RequestBody HowTo newHowTo) throws URISyntaxException  {
         newHowTo.setHowtoid(0);
         newHowTo = howToService.save(userid, newHowTo);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -105,5 +105,17 @@ public class HowToController {
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
-
+    // Given a complete HowTo Object, Given the howtoid, primary key,
+    // is in the howto table, replace the howto record.
+    // If a step list is given, it replaces the original steps list.
+    // Link: http://localhost:2019/howtos/howto/{howtoid}
+    // @param updateHowTo - A complete howto including all steps to replace the HowTo,
+    //       otherwise steps will remain the same.
+    // @param howtoid -  The primary key of the howto you wish to replace.
+    @PutMapping(value = "/howto/{howtoid}")
+    public ResponseEntity<?> updateFullHowTo(@Valid @RequestBody HowTo updatedHowTo, @PathVariable long howtoid) {
+        updatedHowTo.setHowtoid(howtoid);
+        howToService.save(updatedHowTo.getUser().getUserid(), updatedHowTo);
+        return new ResponseEntity<>(updatedHowTo, HttpStatus.OK);
+    }
 }
