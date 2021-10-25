@@ -59,6 +59,8 @@ public class SeedData implements CommandLineRunner {
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
 
+
+
         // admin, data, user
         User u1 = new User("admin",
                 "password",
@@ -73,6 +75,7 @@ public class SeedData implements CommandLineRunner {
                 .add(new UserRoles(u1,
                         r3));
         u1.getHowTos().add(new HowTo( "name", "description", "category", u1));
+        new Step("test", new HowTo( "name67", "description", "category", u1));
         u1.getUseremails()
                 .add(new Useremail(u1,
                         "admin@email.local"));

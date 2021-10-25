@@ -1,13 +1,22 @@
 package com.howto.services;
 
+import com.howto.models.HowTo;
 import com.howto.models.Step;
+import com.howto.repository.StepRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StepServiceImpl implements StepService {
+    @Autowired
+    private StepRepository stepRepository;
+
     @Override
-    public List<Step> findAllStepsForHowTo(long howtoid) {
-        return null;
+    public List<Step> findAllStepsForHowTo(HowTo howto) {
+        List<Step> list = new ArrayList<>();
+        stepRepository.findByHowto(howto).iterator().forEachRemaining(list::add);
+        return list;
     }
 
     @Override

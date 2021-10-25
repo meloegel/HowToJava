@@ -1,11 +1,12 @@
 package com.howto.services;
 
+import com.howto.models.HowTo;
 import com.howto.models.Step;
 
 import java.util.List;
 
 public interface StepService {
-    List<Step> findAllStepsForHowTo(long howtoid);
+    List<Step> findAllStepsForHowTo(HowTo howto);
 
     Step findStepById(long stepid);
 

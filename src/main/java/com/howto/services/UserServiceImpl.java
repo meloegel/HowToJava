@@ -3,6 +3,7 @@ package com.howto.services;
 import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
 import com.howto.models.Role;
+import com.howto.models.Step;
 import com.howto.models.User;
 import com.howto.models.UserRoles;
 import com.howto.models.Useremail;
@@ -84,6 +85,11 @@ public class UserServiceImpl implements UserService{
         newUser.getHowTos().clear();
         for (HowTo ht : user.getHowTos()) {
             newUser.getHowTos().add(new HowTo(ht.getName(), ht.getDescription(), ht.getCategory(), newUser));
+        }
+        for (HowTo ht : user.getHowTos()) {
+            for (Step st : ht.getSteps()) {
+                ht.getSteps().add(new Step(st.getStep(), st.getHowto()));
+            }
         }
         newUser.getUseremails().clear();
         for (Useremail ue : user.getUseremails()) {
