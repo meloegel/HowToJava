@@ -17,6 +17,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -74,8 +76,8 @@ public class SeedData implements CommandLineRunner {
         u1.getRoles()
                 .add(new UserRoles(u1,
                         r3));
-        u1.getHowTos().add(new HowTo( "name", "description", "category", u1));
-        new Step("test", new HowTo( "name67", "description", "category", u1));
+        u1.getHowTos().add(new HowTo( "name", "description", "category",u1));
+
         u1.getUseremails()
                 .add(new Useremail(u1,
                         "admin@email.local"));
@@ -135,6 +137,22 @@ public class SeedData implements CommandLineRunner {
                 .add(new UserRoles(u5,
                         r2));
         userService.save(u5);
+
+
+
+        User u6 = new User("fart", "password", "email@email.com");
+        u6.getRoles()
+                .add(new UserRoles(u6,
+                     r1));
+        u6.getRoles()
+                .add(new UserRoles(u6,
+                     r2));
+        u6.getRoles()
+                .add(new UserRoles(u6,
+                     r3));
+        new Step("test", new HowTo( "name67", "description", "category", u6));
+        userService.save(u6);
+
 
         if (false)
         {

@@ -4,7 +4,9 @@ import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
 import com.howto.models.Step;
 import com.howto.models.User;
+import com.howto.models.UserRoles;
 import com.howto.repository.HowToRepository;
+import com.howto.repository.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,8 +24,8 @@ public class HowToServiceImpl implements HowToService{
    @Autowired
    private UserService userService;
 
-//   @Autowired
-//   private StepService stepService;
+   @Autowired
+   private StepRepository stepRepository;
 
     @Override
     public List<HowTo> findAll() {
@@ -68,6 +70,7 @@ public class HowToServiceImpl implements HowToService{
         howToRepository.deleteById(id);
     }
 
+
     @Transactional
     @Override
     public HowTo save(long userid, HowTo howTo) {
@@ -86,13 +89,10 @@ public class HowToServiceImpl implements HowToService{
         User userInfo = userService.findUserById(userid);
         newHowTo.setUser(userInfo);
 
-//        newHowTo.setSteps(howTo.getSteps());
 
-
-//        for (Step st : newHowTo.getSteps()) {
-//            Step addStep = stepService.save(st)
-//
-//        }
+        for (Step st : newHowTo.getSteps()) {
+            stepRepository.save(st);
+        }
 
 
         return howToRepository.save(newHowTo);

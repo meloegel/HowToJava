@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService{
         }
         newUser.getHowTos().clear();
         for (HowTo ht : user.getHowTos()) {
-            newUser.getHowTos().add(new HowTo(ht.getName(), ht.getDescription(), ht.getCategory(), newUser));
+            newUser.getHowTos().add(new HowTo(ht.getName(), ht.getDescription(), ht.getCategory(), ht.getComplexity(), ht.getSteps(), newUser));
         }
         for (HowTo ht : user.getHowTos()) {
             for (Step st : ht.getSteps()) {
