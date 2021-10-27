@@ -38,7 +38,7 @@ public class StepServiceImpl implements StepService {
 
     @Transactional
     @Override
-    public Step save(Step step, long howtoid) {
+    public Step save(long howtoid, Step step) {
         HowTo howto = howToService.findByHowToId(howtoid);
         Step newStep = new Step();
         newStep.setStep(step.getStep());

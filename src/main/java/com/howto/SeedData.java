@@ -9,7 +9,9 @@ import com.howto.models.Step;
 import com.howto.models.User;
 import com.howto.models.UserRoles;
 import com.howto.models.Useremail;
+import com.howto.services.HowToService;
 import com.howto.services.RoleService;
+import com.howto.services.StepService;
 import com.howto.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -36,6 +38,12 @@ public class SeedData implements CommandLineRunner {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    HowToService howToService;
+
+    @Autowired
+    StepService stepService;
 
     /**
      * Generates test, seed data for our application
@@ -150,10 +158,18 @@ public class SeedData implements CommandLineRunner {
         u6.getRoles()
                 .add(new UserRoles(u6,
                      r3));
-        new Step("test", new HowTo( "name67", "description", "category", u6));
+
         userService.save(u6);
+        List<Step> stepList = new ArrayList<>();
+
+        HowTo how = new HowTo("sdfoikjnsdiof", "sadqwdq", "dqwwwwqdqw", "complexity", stepList , u1);
+
+        howToService.save(4, how);
+        stepService.save(19, new Step("test", how));
 
 
+        Step step = new Step("fart", new HowTo( "fart", "fart", "fart", u1));
+        stepService.save(19, step);
         if (false)
         {
             // using JavaFaker create a bunch of regular users

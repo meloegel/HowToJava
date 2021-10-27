@@ -12,7 +12,7 @@ public interface StepService {
 
     void delete(long id);
 
-    Step save(Step step, long howtoid);
+    Step save( long howtoid, Step step);
 
     Step update(Step step, long stepid);
 

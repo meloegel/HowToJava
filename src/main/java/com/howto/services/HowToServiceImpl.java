@@ -90,9 +90,10 @@ public class HowToServiceImpl implements HowToService{
         newHowTo.setUser(userInfo);
 
 
-        for (Step st : newHowTo.getSteps()) {
-            stepRepository.save(st);
-        }
+//        for (Step st : newHowTo.getSteps()) {
+//            stepRepository.save(st);
+//            newHowTo.getSteps().add(new Step(st.getStep(), newHowTo));
+//        }
 
 
         return howToRepository.save(newHowTo);
