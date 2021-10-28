@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -50,11 +51,20 @@ public class HowToController {
 
     // Returns a specific howto based of valid name given
     // ** Use underscores (_) as spaces for more than one word names **
-    // Link: http://localhost:2019/howtos/howto/cook_fish
+    // Link: http://localhost:2019/howtos/howto/name/cook_fish
     // @param name - the name of the howto that you wish to search for
-    @GetMapping(value = "/howto/{name}", produces = "application/json")
+    @GetMapping(value = "/howto/name/{name}", produces = "application/json")
     public ResponseEntity<?> getHowToByName(@PathVariable String name) {
         HowTo howto = howToService.findByName(name);
+        return new ResponseEntity<>(howto, HttpStatus.OK);
+    }
+
+    // Returns a specific howto based of valid id given
+    // Link: http://localhost:2019/howtos/howto/5
+    // @param id - the id of the howto that you wish to search for
+    @GetMapping(value = "/howto/{id}", produces = "application/json")
+    public ResponseEntity<?> getHowToById(@PathVariable long id) {
+        HowTo howto = howToService.findByHowToId(id);
         return new ResponseEntity<>(howto, HttpStatus.OK);
     }
 

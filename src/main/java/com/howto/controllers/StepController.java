@@ -31,6 +31,12 @@ public class StepController {
         return new ResponseEntity<>(allSteps, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/step/{id}", produces = "application/json")
+    public ResponseEntity<?> getStepById(@PathVariable long id) {
+        Step step = stepService.findStepById(id);
+        return new ResponseEntity<>(step, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/step/{id}")
     public ResponseEntity<?> deleteStepById(@PathVariable long id) {
         stepService.delete(id);

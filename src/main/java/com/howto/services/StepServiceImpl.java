@@ -30,14 +30,16 @@ public class StepServiceImpl implements StepService {
 
     @Override
     public Step findStepById(long stepid) {
-        return null;
+        return stepRepository.findById(stepid)
+                .orElseThrow(() -> new ResourceNotFoundException("Step with id " + stepid + " not found!"));
     }
 
 
     @Transactional
     @Override
     public void delete(long id) {
-        stepRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Step id " + id + " not found!"));
+        stepRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Step with id " + id + " not found!"));
         stepRepository.deleteById(id);
     }
 
