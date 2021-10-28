@@ -7,6 +7,7 @@ import com.howto.services.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,4 +30,11 @@ public class StepController {
         List<Step> allSteps = stepService.findAllStepsForHowTo(howto);
         return new ResponseEntity<>(allSteps, HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/step/{id}")
+    public ResponseEntity<?> deleteStepById(@PathVariable long id) {
+        stepService.delete(id);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
 }

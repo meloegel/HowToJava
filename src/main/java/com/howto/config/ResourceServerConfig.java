@@ -29,7 +29,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
                         "/v2/api-docs",
                         "/webjars/**",
                         "/createNewUser",
-                        "/howtos/**")
+                        "/howtos/**",
+                        "/steps/**")
                 .permitAll()
                 .antMatchers(HttpMethod.POST,
                         "/users/**")

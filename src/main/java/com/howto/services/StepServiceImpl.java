@@ -1,5 +1,6 @@
 package com.howto.services;
 
+import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
 import com.howto.models.Step;
 import com.howto.repository.StepRepository;
@@ -32,8 +33,12 @@ public class StepServiceImpl implements StepService {
         return null;
     }
 
+
+    @Transactional
     @Override
     public void delete(long id) {
+        stepRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Step id " + id + " not found!"));
+        stepRepository.deleteById(id);
     }
 
     @Transactional
