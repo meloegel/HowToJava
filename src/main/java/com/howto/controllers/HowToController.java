@@ -95,11 +95,11 @@ public class HowToController {
         newHowTo.setHowtoid(0);
         newHowTo = howToService.save(userid, newHowTo);
         HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+        URI newHowtoURI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/howtos/howto/{howtoid}")
                 .buildAndExpand(newHowTo.getHowtoid())
                 .toUri();
-        responseHeaders.setLocation(newUserURI);
+        responseHeaders.setLocation(newHowtoURI);
         return new ResponseEntity<>(newHowTo, responseHeaders, HttpStatus.CREATED);
     }
 
