@@ -107,7 +107,7 @@ public class UserController {
     @PatchMapping(value = "/user/{id}", consumes = "application/json")
     public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id) {
         userService.update(updateUser, id);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return new ResponseEntity<>(updateUser, HttpStatus.OK);
     }
 
     // Deletes a given user along with associated emails and roles
@@ -116,7 +116,7 @@ public class UserController {
     @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable long id) {
         userService.delete(id);
-        return new ResponseEntity<>("Success", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // Returns the User record for the currently authenticated user based off of the supplied access token

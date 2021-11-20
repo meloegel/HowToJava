@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -68,6 +67,15 @@ public class HowToController {
         return new ResponseEntity<>(howto, HttpStatus.OK);
     }
 
+    // Returns a specific howto based of valid id given
+    // Link: http://localhost:2019/howtos/howto/steps/5
+    // @param id - the id of the howto that you wish to search for
+    @GetMapping(value = "/howto/steps/{id}", produces = "application/json")
+    public ResponseEntity<?> findHowToWithSteps(@PathVariable long id) {
+        HowTo howto = howToService.findByHowToId(id);
+        return new ResponseEntity<>(howto, HttpStatus.OK);
+    }
+
     // Returns a list of howtos whose name contains the given substring
     // ** Use underscores (_) as spaces for more than one word names **
     // Link: http://localhost:2019/howtos/howtos/like/cook_fish
@@ -116,11 +124,10 @@ public class HowToController {
     }
 
     // Given a complete HowTo Object, Given the howtoid, primary key,
-    // is in the howto table, replace the howto record.
-    // If a step list is given, it replaces the original steps list.
+    //      is in the howto table, replace the howto record.
+    // Steps are handled on the step controller
     // Link: http://localhost:2019/howtos/howto/{howtoid}
-    // @param updateHowTo - A complete howto including all steps to replace the HowTo,
-    //       otherwise steps will remain the same.
+    // @param updateHowTo - A complete howto to replace the current HowTo,
     // @param howtoid -  The primary key of the howto you wish to replace.
     @PutMapping(value = "/howto/{howtoid}")
     public ResponseEntity<?> updateFullHowTo(@Valid @RequestBody HowTo updatedHowTo, @PathVariable long howtoid) {

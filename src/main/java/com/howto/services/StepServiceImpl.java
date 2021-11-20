@@ -6,6 +6,7 @@ import com.howto.models.Step;
 import com.howto.repository.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -53,13 +54,24 @@ public class StepServiceImpl implements StepService {
         return stepRepository.save(newStep);
     }
 
+
     @Override
     public Step update(Step step, long stepid) {
-        return null;
+        Step newStep = findStepById(stepid);
+        if (newStep.getStep() == null) {
+            throw new ResourceNotFoundException("Step with id " + stepid + " does not exist!");
+        }
+        if (step.getStep() != null) {
+            newStep.setStep(step.getStep());
+        }
+
+        return stepRepository.save(newStep);
     }
 
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Override
     public void deleteAll() {
-
+        stepRepository.deleteAll();
     }
 }

@@ -46,26 +46,33 @@ public class OpenController {
     //  @param newminuser - A special minimum set of data that is needed to create a new user
     @PostMapping(value = "/createNewUser", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addSelf(HttpServletRequest httpServletRequest,
-                                     @Valid @RequestBody UserMinimum newMinUser)
-            throws URISyntaxException {
+                                     @Valid @RequestBody UserMinimum newminuser)
+            throws
+            URISyntaxException {
 
-        User newUser = new User();
+        // Create the user
+        User newuser = new User();
 
-        newUser.setUsername(newMinUser.getUsername());
-        newUser.setPassword(newMinUser.getPassword());
-        newUser.setPrimaryemail(newMinUser.getPrimaryemail());
+        newuser.setUsername(newminuser.getUsername());
+        newuser.setPassword(newminuser.getPassword());
+        newuser.setPrimaryemail(newminuser.getPrimaryemail());
 
+        // add the default role of user
         Set<UserRoles> newRoles = new HashSet<>();
-        newRoles.add(new UserRoles(newUser, roleService.findByName("user")));
-        newUser.setRoles(newRoles);
+        newRoles.add(new UserRoles(newuser, roleService.findByName("user")));
+        newuser.setRoles(newRoles);
 
-        newUser = userService.save(newUser);
+        newuser = userService.save(newuser);
 
+        // set the location header for the newly created resource
+        // The location comes from a different controller!
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromUriString(httpServletRequest.getServerName() + ":" + httpServletRequest.getLocalPort() + "/users/user/{userId}")
-                .buildAndExpand(newUser.getUserid()).toUri();
+                .buildAndExpand(newuser.getUserid()).toUri();
         responseHeaders.setLocation(newUserURI);
 
+        // return the access token
+        // To get the access token, surf to the endpoint /login just as if a client had done this.
         RestTemplate restTemplate = new RestTemplate();
         String requestURI = "http://localhost" + ":" + httpServletRequest.getLocalPort() + "/login";
 
@@ -80,8 +87,8 @@ public class OpenController {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "password");
         map.add("scope", "read write trust");
-        map.add("username", newMinUser.getUsername());
-        map.add("password", newMinUser.getPassword());
+        map.add("username", newminuser.getUsername());
+        map.add("password", newminuser.getPassword());
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
@@ -89,7 +96,6 @@ public class OpenController {
 
         return new ResponseEntity<>(theToken, responseHeaders, HttpStatus.CREATED);
     }
-
     // Prevents no favicon.ico warning from appearing in the logs.
     //       @ApiIgnore tells Swagger to ignore documenting this as an endpoint.
     @ApiIgnore

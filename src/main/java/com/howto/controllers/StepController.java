@@ -5,7 +5,6 @@ import com.howto.models.Step;
 import com.howto.services.HowToService;
 import com.howto.services.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,11 +51,13 @@ public class StepController {
         return new ResponseEntity<>(step, HttpStatus.OK);
     }
 
+
     // Given a complete Step Object, create a new Step record
     // Link: http://localhost:2019/steps/step/19
     // @param newStep - A complete new step (step min: step, howtoid)
     @PostMapping(value = "/step/{howtoid}", consumes = "application/json")
-    public ResponseEntity<?> addNewStep(@PathVariable long howtoid, @Valid @RequestBody Step newStep) throws URISyntaxException {
+    public ResponseEntity<?> addNewStep(@PathVariable long howtoid, @Valid @RequestBody Step newStep)
+            throws URISyntaxException {
         newStep.setStepid(0);
         newStep = stepService.save(howtoid, newStep);
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -65,6 +67,20 @@ public class StepController {
                 .toUri();
         responseHeaders.setLocation(newStepURI);
         return new ResponseEntity<>(newStep, responseHeaders, HttpStatus.CREATED);
+    }
+
+    // Given a complete Step Object, Given the stepid, primary key,
+    //      is in the step table, replace the step record.
+    // If a step list is given, it replaces the original steps list.
+    // Link: http://localhost:2019/steps/step/4/19
+    // @param updateStep - A complete step to replace the current step,
+    // @param stepid -  The primary key of the step you wish to replace.
+    // @param howtoid -  The primary key of the howto the step belongs to.
+    @PutMapping(value = "/step/{stepid}/{howtoid}")
+    public ResponseEntity<?> updateFullStep(@Valid @RequestBody Step updatedStep, @PathVariable long stepid, @PathVariable long howtoid) {
+        updatedStep.setStepid(stepid);
+        stepService.save(howtoid, updatedStep);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     // Deletes a given step
