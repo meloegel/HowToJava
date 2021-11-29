@@ -24,7 +24,7 @@ public class Step extends Auditable{
 
     @ManyToOne
     @JoinColumn(name = "howtoid", nullable = false)
-    @JsonIgnoreProperties(value = "steps", allowSetters = true)
+    @JsonIgnoreProperties(value = {"steps", "user", "complexity", "category", "description"}, allowSetters = true)
     private HowTo howto;
 
     public Step() {}
