@@ -1,6 +1,5 @@
 package com.howto.services;
 
-
 import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.User;
 import com.howto.repository.UserRepository;
@@ -26,6 +25,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
         if (user == null){
             throw new ResourceNotFoundException("Invalid username or password.");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthority());
+        return new org.springframework.security.core.userdetails
+                .User(user.getUsername(), user.getPassword(), user.getAuthority());
     }
 }

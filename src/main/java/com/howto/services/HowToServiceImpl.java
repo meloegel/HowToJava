@@ -2,18 +2,16 @@ package com.howto.services;
 
 import com.howto.exceptions.ResourceNotFoundException;
 import com.howto.models.HowTo;
-import com.howto.models.Step;
 import com.howto.models.User;
-import com.howto.models.UserRoles;
 import com.howto.repository.HowToRepository;
 import com.howto.repository.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Transactional
 @Service(value = "howToService")

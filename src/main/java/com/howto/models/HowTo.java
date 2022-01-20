@@ -38,7 +38,7 @@ public class HowTo extends Auditable {
     @Column
     private String complexity;
 
-    @OneToMany(mappedBy = "stepid", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "howto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "howtoid", allowSetters = true)
     private List<Step> steps = new ArrayList<>();
 

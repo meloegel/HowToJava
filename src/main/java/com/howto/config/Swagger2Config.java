@@ -30,8 +30,8 @@ public class Swagger2Config {
     }
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("User Model Example")
-                .description("User Model Example")
+        return new ApiInfoBuilder().title("Howto")
+                .description("Simple Howto")
                 .contact(new Contact("Mark Loegel",
                         "http://www.markloegel.vercel.app",
                         "meloegel@gmail.com"))

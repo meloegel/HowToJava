@@ -47,8 +47,7 @@ public class OpenController {
     @PostMapping(value = "/createNewUser", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> addSelf(HttpServletRequest httpServletRequest,
                                      @Valid @RequestBody UserMinimum newminuser)
-            throws
-            URISyntaxException {
+            throws URISyntaxException {
 
         // Create the user
         User newuser = new User();

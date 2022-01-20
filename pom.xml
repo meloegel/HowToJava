@@ -104,7 +104,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>jrmmba-foundation</finalName>
+		<finalName>Howto</finalName>
 
 		<plugins>
 			<plugin>
